@@ -40,11 +40,8 @@ int **loadPuzzle(int x, int y, int fileNumber)
     ostringstream stream;
     stream << "data" << fileNumber << ".txt";
     string filename = stream.str();
+    cout << "You are playing the puzzle from " << filename << endl;
     ifstream infile(filename.c_str());
-
-    //If file doesn't exist.
-    if (!infile)
-        errorMsg("File doesn't exist",true);
 
     //Insert the data into the array.
     for(int row=0; row<y; row++) {
@@ -240,15 +237,15 @@ void populateHeap(BinHeap &bh, Config c) {
 //This is the recursive algorithm that solves the puzzle.
 void solvePuzzle(Config &c, Config goal, BinHeap &bh) {
     //generate possibilities
-    populateHeap(bh, c);
-
-    //if not at goal by the time the path is 20 or more, return.
-    //This solves the issue of a puzzle that cannot be solved.
-    if(c.getPath().length() >= 20) {
-        return;
-    }
-    //if not at goal configuration call this function with the min
     if(!c.equalConfig(goal)) {
+        populateHeap(bh, c);
+
+        //if not at goal by the time the path is 20 or more, return.
+        //This solves the issue of a puzzle that cannot be solved.
+        if(c.getPath().length() >= 20) {
+            return;
+        }
+        //if not at goal configuration call this function with the min
         c = bh.getMin();
         solvePuzzle(c, goal, bh);
     }
@@ -256,6 +253,8 @@ void solvePuzzle(Config &c, Config goal, BinHeap &bh) {
 
 //-----------------------------------------MAIN-------------------------------------------------------
 int main(int argc, const char * argv[]) {
+    cout << endl << endl << "Welcome to the 9-puzzle game!" << endl;
+    cout << "A random puzzle will be started for you!" << endl << endl;
 
     //Create goal configuration
     Config goal;
@@ -360,6 +359,8 @@ int main(int argc, const char * argv[]) {
             if(current.equalConfig(goal)) {
                 a[1][1] = 999;
                 done = true;
+                cout << "You Win!!" << endl;
+                cout << "Please close and then re-open the game to play again with a new puzzle." << endl;
             }
             //wait for user input.
             disp.wait();
@@ -412,5 +413,6 @@ int main(int argc, const char * argv[]) {
            }
         }
 	}
+    cout << "Thanks for playing!" << endl;
     return 0;
 }
