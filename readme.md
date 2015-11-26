@@ -37,3 +37,5 @@ The user's goal is to end up with the puzzle in a specific configuration
 * **Windows** - g++ -o lab3.exe lab3.cpp -O2 -lgdi32
 * **Linux** - g++ -o lab3 lab3.cpp -O2 -L/usr/X11R6/lib -lm -lpthread -lX11 
 * **Mac** - g++ -Wall -o main main.cpp -I/usr/X11R6/include -L/usr/X11R6/lib -lX11
+
+* Test
